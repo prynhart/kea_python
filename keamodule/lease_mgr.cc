@@ -67,12 +67,13 @@ LeaseMgr_getLease4(LeaseMgrObject *self, PyObject *args, PyObject *kwargs) {
             ClientIdPtr clientid_ptr = ClientId::fromText(client_id);
             ptr = self->mgr->getLease4(*clientid_ptr, subnet_id);
         }
-        else if (!addr && hwaddr != 0 && client_id != 0 && have_subnet_id) {
-            // Lease4Ptr getLease4(const ClientId &client_id, const HWAddr &hwaddr, SubnetID subnet_id)
-            ClientIdPtr clientid_ptr = ClientId::fromText(client_id);
-            HWAddr hw = HWAddr::fromText(hwaddr);
-            ptr = self->mgr->getLease4(*clientid_ptr, hw, subnet_id);
-        }
+        // Removed for 2.0.2 support.  This support could come back in later versions
+        // else if (!addr && hwaddr != 0 && client_id != 0 && have_subnet_id) {
+        //    // Lease4Ptr getLease4(const ClientId &client_id, const HWAddr &hwaddr, SubnetID subnet_id)
+        //    ClientIdPtr clientid_ptr = ClientId::fromText(client_id);
+        //    HWAddr hw = HWAddr::fromText(hwaddr);
+        //    ptr = self->mgr->getLease4(*clientid_ptr, hw, subnet_id);
+        // }
         else if (!addr && hwaddr != 0 && !client_id && !have_subnet_id) {
             // Lease4Collection getLease4(const HWAddr &hwaddr)
             HWAddr hw = HWAddr::fromText(hwaddr);
