@@ -346,6 +346,28 @@ Pkt4_getOption(Pkt4Object *self, PyObject *args) {
 }
 
 static PyObject *
+Pkt4_getOptions(Pkt4Object *self) {
+    try {
+        PyObject *options = PyList_New(0);
+
+        if (!self->ptr->options_.empty()) {
+            for (isc::dhcp::OptionCollection::const_iterator opt = self->ptr->options_.begin();
+             opt != self->ptr->options_.end(); ++opt) {
+
+                PyList_Append(options, PyLong_FromUnsignedLong(opt->second->getType()));
+            }
+        } else {
+            Py_RETURN_NONE;
+        }
+        return (options);
+    }
+    catch (const exception &e) {
+        PyErr_SetString(PyExc_TypeError, e.what());
+        return (0);
+    }
+}
+
+static PyObject *
 Pkt4_toText(Pkt4Object *self, PyObject *args) {
     try {
         string addr = self->ptr->toText();
@@ -424,6 +446,8 @@ static PyMethodDef Pkt4_methods[] = {
      "Adds an option to this packet."},
     {"getOption", (PyCFunction) Pkt4_getOption, METH_VARARGS,
      "Returns the first option of specified type."},
+    {"getOptions", (PyCFunction) Pkt4_getOptions, METH_NOARGS,
+     "Returns a list of all of the options."},
     {"toText", (PyCFunction) Pkt4_toText, METH_NOARGS,
      "Returns text representation of the packet."},
     {"pack", (PyCFunction) Pkt4_pack, METH_NOARGS,
