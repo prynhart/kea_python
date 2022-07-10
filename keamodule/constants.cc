@@ -125,7 +125,6 @@ static KeaConstant constants[] = {
     constant(DHO_TCODE),
     constant(DHO_NETINFO_ADDR),
     constant(DHO_NETINFO_TAG),
-    constant(DHO_URL),
     constant(DHO_AUTO_CONFIG),
     constant(DHO_NAME_SERVICE_SEARCH),
     constant(DHO_SUBNET_SELECTION),
