@@ -19,6 +19,8 @@ extern "C" {
 // kea.cc
 extern PyObject *kea_module;
 
+extern int multi_threading_compatible();
+
 // errors.cc
 extern int Errors_initialize();
 extern int Errors_finalize();

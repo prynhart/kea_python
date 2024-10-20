@@ -24,6 +24,12 @@ void      (*dl_PyEval_InitThreads)(void);
 void      (*dl_Py_Finalize)(void);
 void*     (*dl_PyCapsule_Import)(const char *name, int no_block);
 
+int multi_threading_compatible() {
+    // TODO: Make use of locking to ensure that hook logic does not cause race
+    // conditions or thread-unsafe behaviour when integrated into Kea.
+    return 1;
+}
+
 static int
 find_symbol(void **sym, const char *name) {
     *sym = dlsym(libpython, name);
